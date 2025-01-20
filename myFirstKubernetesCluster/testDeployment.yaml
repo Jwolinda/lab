@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jeremy-test
+    testing: tests
+  name: jeremy-test
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: jeremy-test
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 10%
+      maxSurge: 10%
+
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jeremy-test
+        testing: dtests
+    spec:
+      containers:
+        - image: httpd:alpine3.18
+          name: httpd
